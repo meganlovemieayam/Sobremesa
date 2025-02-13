@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website with Sign Up and Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: #007BFF;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        header img {
+            width: 150px;
+            display: block;
+            margin: 0 auto 1rem;
+            
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .form-section {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 0.5rem 0 0.2rem;
+            color: #555;
+        }
+        input[type="text"], input[type="password"], button {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .tabs {
+            display: flex;
+            justify-content: space-around;
+            margin: 2rem 0;
+        }
+        .tab {
+            cursor: pointer;
+            padding: 1rem;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+            text-align: center;
+            flex: 1;
+        }
+        .tab:hover {
+            background-color: #0056b3;
+        }
+        .tab-content {
+            display: none;
+            margin-top: 1rem;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #007BFF;
+            color: white;
+            margin-top: 2rem;
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        .menu-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .menu-item img {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 0.5rem;
+        }
+        .merch-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1rem 0;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .merch-item img {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="file:///D:/LOGO SOBREMESA.jpg" alt="Sobremesa Logo">
+        <div class="header-content">
+            <h1>Welcome to Sobremesa</h1>
+            <p>Sweet Moments Beyond the Meal</p>
+        </div>
+    </header>
+    <div class="container">
+
+        <!-- Sign Up / Login Section -->
+        <div class="form-section" id="auth-section">
+            <h2 id="form-title">Sign Up</h2>
+
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Enter your username">
+
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password">
+
+            <button onclick="handleAuth()" id="auth-button">Sign Up</button>
+
+            <p id="toggle-message">Already have an account? <a href="#" onclick="toggleAuth()">Log in here</a></p>
+        </div>
+
+        <!-- Tabs Section -->
+        <div class="tabs" style="display:none;" id="tabs-section">
+            <div class="tab" onclick="showTab('menu')">Our Menu</div>
+            <div class="tab" onclick="showTab('points-exchange')">Points Exchange</div>
+            <div class="tab" onclick="showTab('contact')">Contact Us</div>
+        </div>
+
+        <!-- Tab Contents -->
+        <div class="tab-content" id="menu">
+            <h2>Our Menu</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <img src="https://i.pinimg.com/474x/bb/16/00/bb1600ca1db254f511ee0c3773715df7.jpg" alt="Dark Chocolate">
+                    <span>Dark Chocolate Brownies</span>
+                </div>
+                <div class="menu-item">
+                    <img src="https://i.pinimg.com/736x/12/90/ce/1290ce464cea6fd0c8d4ca2e0fcaa572.jpg" alt="White Chocolate">
+                    <span>White Chocolate Brownies</span>
+                </div>
+                <div class="menu-item">
+                    <img src="https://i.pinimg.com/474x/fb/1a/5d/fb1a5d8149a823b083a42bdb319c4a78.jpg" alt="Choco Chips">
+                    <span>Choco Chips Brownies</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="points-exchange">
+            <h2>Points Exchange</h2>
+            <div class="customer-points">Your Points: <span id="customer-points">0</span></div>
+            <div class="barcode">
+                <p>Scan here to collect points:</p>
+                <button onclick="openCamera()">Open Camera to Scan</button>
+            </div>
+            <div class="merch-item">
+                <div>
+                    <strong>Cap</strong>
+                    <p>10 Points</p>
+                    <button onclick="exchangePoints(10, 'Cap')">Exchange</button>
+                </div>
+                <img src="https://i.pinimg.com/736x/06/1a/dd/061add79ade12873b93dbece91a6ce98.jpg" alt="Cap">
+            </div>
+            <div class="merch-item">
+                <div>
+                    <strong>Tote Bag</strong>
+                    <p>10 Points</p>
+                    <button onclick="exchangePoints(10, 'Tote Bag')">Exchange</button>
+                </div>
+                <img src="https://i.pinimg.com/736x/7e/c8/3e/7ec83e8a5207372408d780d1dc106cd3.jpg" alt="Tote Bag">
+            </div>
+            <div class="merch-item">
+                <div>
+                    <strong>Keychain</strong>
+                    <p>5 Points</p>
+                    <button onclick="exchangePoints(5, 'Keychain')">Exchange</button>
+                </div>
+                <img src="https://i.pinimg.com/736x/ab/3e/ae/ab3eaeea7644c15390839b671782a875.jpg" alt="Keychain">
+            </div>
+            <div class="merch-item">
+                <div>
+                    <strong>Mug</strong>
+                    <p>15 Points</p>
+                    <button onclick="exchangePoints(15, 'Mug')">Exchange</button>
+                </div>
+                <img src="https://i.pinimg.com/736x/ad/5a/53/ad5a53141211b7e5e60819e47ad93186.jpg" alt="Mug">
+            </div>
+        </div>
+
+        <div class="tab-content" id="contact">
+            <h2>Contact Us</h2>
+            <p>WhatsApp: <a href="tel:085705451277">085705451277</a></p>
+            <p>Instagram: <a href="https://www.instagram.com/sobremesa.brownies" target="_blank">@sobremesa.brownies</a></p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Sobremesa. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let isSignUp = true;
+        let customerPoints = 0;
+
+        function toggleAuth() {
+            isSignUp = !isSignUp;
+            document.getElementById('form-title').textContent = isSignUp ? 'Sign Up' : 'Login';
+            document.getElementById('auth-button').textContent = isSignUp ? 'Sign Up' : 'Login';
+            document.getElementById('toggle-message').innerHTML = isSignUp 
+                ? 'Already have an account? <a href="#" onclick="toggleAuth()">Log in here</a>' 
+                : 'Don\'t have an account? <a href="#" onclick="toggleAuth()">Sign up here</a>';
+        }
+
+        function handleAuth() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (!username || !password) {
+                alert('Please fill out both fields.');
+                return;
+            }
+
+            if (isSignUp) {
+                alert(`Account created successfully for ${username}!`);
+            } else {
+                alert(`Welcome back, ${username}!`);
+            }
+
+            document.getElementById('auth-section').style.display = 'none';
+            document.getElementById('tabs-section').style.display = 'flex';
+            showTab('menu');
+        }
+
+        function showTab(tabId) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function collectPoints() {
+            customerPoints += 5;
+            document.getElementById('customer-points').textContent = customerPoints;
+            alert('You collected 5 points!');
+        }
+
+        function exchangePoints(cost, itemName) {
+            if (customerPoints >= cost) {
+                customerPoints -= cost;
+                document.getElementById('customer-points').textContent = customerPoints;
+                alert(`Successfully exchanged ${cost} points for ${itemName}. Please show this to the cashier.`);
+            } else {
+                alert('Not enough points to exchange for this item.');
+            }
+        }
+
+        function openCamera() {
+            alert('Opening camera to scan...');
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then((stream) => {
+                    alert('Camera is now active. Point it at the QR code to scan.');
+                })
+                .catch((err) => {
+                    alert('Error accessing camera: ' + err);
+                });
+        }
+    </script>
+</body>
+</html>
